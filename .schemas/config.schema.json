@@ -1,0 +1,644 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/gr-oss-developers/repo3/main/.schemas/repository-config.schema.json",
+  "title": "Repository Configuration",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "default_branch": {
+      "type": "string",
+      "description": "Specifies the default branch for the repository. Example: main."
+    },
+    "description": {
+      "type": "string",
+      "description": "A brief description of the repository."
+    },
+    "visibility": {
+      "type": "string",
+      "description": "Defines the visibility of the repository.",
+      "enum": ["public", "private"]
+    },
+    "homepage_url": {
+      "type": "string",
+      "description": "The URL to the repository's homepage or website."
+    },
+    "has_issues": {
+      "type": "boolean",
+      "description": "If true, the repository has issue tracking enabled."
+    },
+    "has_projects": {
+      "type": "boolean",
+      "description": "If true, the repository has project boards enabled."
+    },
+    "has_wiki": {
+      "type": "boolean",
+      "description": "If true, the repository has a wiki enabled."
+    },
+    "has_downloads": {
+      "type": "boolean",
+      "description": "If true, the repository allows downloads (e.g., binary assets)."
+    },
+    "allow_merge_commit": {
+      "type": "boolean",
+      "description": "If true, merge commits are allowed."
+    },
+    "allow_rebase_merge": {
+      "type": "boolean",
+      "description": "If true, rebase merging is allowed."
+    },
+    "allow_squash_merge": {
+      "type": "boolean",
+      "description": "If true, squash merging is allowed."
+    },
+    "allow_auto_merge": {
+      "type": "boolean",
+      "description": "If true, auto-merging is allowed when conditions are met."
+    },
+    "allow_update_branch": {
+      "type": "boolean",
+      "description": "If true, contributors can update the branch from the default."
+    },
+    "squash_merge_commit_title": {
+      "type": "string",
+      "description": "Defines the default title for squash merge commits."
+    },
+    "squash_merge_commit_message": {
+      "type": "string",
+      "description": "Defines the default commit message for squash merges."
+    },
+    "merge_commit_title": {
+      "type": "string",
+      "description": "Defines the default title for merge commits."
+    },
+    "merge_commit_message": {
+      "type": "string",
+      "description": "Defines the default message for merge commits."
+    },
+    "web_commit_signoff_required": {
+      "type": "boolean",
+      "description": "If true, commit signoff is required for web-based commits."
+    },
+    "delete_branch_on_merge": {
+      "type": "boolean",
+      "description": "If true, the branch will be deleted after the merge."
+    },
+    "is_template": {
+      "type": "boolean",
+      "description": "If true, the repository is a template repository."
+    },
+    "archived": {
+      "type": "boolean",
+      "description": "If true, the repository is archived."
+    },
+    "has_discussions": {
+      "type": "boolean",
+      "description": "If true, the repository has discussions enabled."
+    },
+    "topics": {
+      "type": "array",
+      "description": "A list of topics or tags to categorize the repository.",
+      "items": { "type": "string" }
+    },
+    "pull_collaborators": {
+      "type": "array",
+      "description": "A list of users with pull access to the repository.",
+      "items": { "type": "string" }
+    },
+    "triage_collaborators": {
+      "type": "array",
+      "description": "A list of users with triage access to the repository.",
+      "items": { "type": "string" }
+    },
+    "push_collaborators": {
+      "type": "array",
+      "description": "A list of users with push access to the repository.",
+      "items": { "type": "string" }
+    },
+    "maintain_collaborators": {
+      "type": "array",
+      "description": "A list of users with maintain access to the repository.",
+      "items": { "type": "string" }
+    },
+    "admin_collaborators": {
+      "type": "array",
+      "description": "A list of users with admin access to the repository.",
+      "items": { "type": "string" }
+    },
+    "pull_teams": {
+      "type": "array",
+      "description": "A list of teams with pull access to the repository.",
+      "items": { "type": "string" }
+    },
+    "triage_teams": {
+      "type": "array",
+      "description": "A list of teams with triage access to the repository.",
+      "items": { "type": "string" }
+    },
+    "push_teams": {
+      "type": "array",
+      "description": "A list of teams with push access to the repository.",
+      "items": { "type": "string" }
+    },
+    "maintain_teams": {
+      "type": "array",
+      "description": "A list of teams with maintain access to the repository.",
+      "items": { "type": "string" }
+    },
+    "admin_teams": {
+      "type": "array",
+      "description": "A list of teams with admin access to the repository.",
+      "items": { "type": "string" }
+    },
+    "license_template": {
+      "type": "string",
+      "description": "The license template to use for the repository."
+    },
+    "gitignore_template": {
+      "type": "string",
+      "description": "The gitignore template to use for the repository."
+    },
+    "template": {
+      "$ref": "#/$defs/RepositoryTemplate",
+      "description": "Configuration for creating a repository from a template."
+    },
+    "pages": {
+      "$ref": "#/$defs/Pages",
+      "description": "Configuration for GitHub Pages."
+    },
+    "rulesets": {
+      "type": "array",
+      "description": "Configuration for repository rulesets.",
+      "items": { "$ref": "#/$defs/Ruleset" }
+    },
+    "vulnerability_alerts_enabled": {
+      "type": "boolean",
+      "description": "If true, vulnerability alerts are enabled."
+    },
+    "branch_protections_v4": {
+      "type": "array",
+      "description": "Configuration for branch protection rules (V4).",
+      "items": { "$ref": "#/$defs/BranchProtectionV4" }
+    }
+  },
+  "required": ["default_branch"],
+  "$defs": {
+    "RepositoryTemplate": {
+      "title": "Template Configuration",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "owner": {
+          "type": "string",
+          "description": "The owner of the template repository."
+        },
+        "repository": {
+          "type": "string",
+          "description": "The name of the template repository."
+        }
+      },
+      "required": ["owner", "repository"]
+    },
+    "Pages": {
+      "title": "Pages Configuration",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "cname": {
+          "type": "string",
+          "description": "The custom domain for GitHub Pages."
+        },
+        "branch": {
+          "type": "string",
+          "description": "The branch to use for GitHub Pages."
+        },
+        "path": {
+          "type": "string",
+          "description": "The directory path for GitHub Pages content."
+        },
+        "build_type": {
+          "type": "string",
+          "description": "The build type for GitHub Pages.",
+          "enum": ["workflow", "legacy"]
+        }
+      },
+      "required": ["branch", "build_type"]
+    },
+    "Ruleset": {
+      "title": "Ruleset Configuration",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "The ID of the ruleset (mainly present in imported configurations)."
+        },
+        "enforcement": {
+          "type": "string",
+          "description": "The enforcement level of the ruleset."
+        },
+        "name": {
+          "type": "string",
+          "description": "The name of the ruleset."
+        },
+        "rules": {
+          "$ref": "#/$defs/Rule",
+          "description": "The rules included in the ruleset."
+        },
+        "target": {
+          "type": "string",
+          "description": "The target of the ruleset."
+        },
+        "bypass_actors": {
+          "type": "array",
+          "description": "Actors that can bypass the ruleset.",
+          "items": { "$ref": "#/$defs/BypassActor" }
+        },
+        "conditions": {
+          "$ref": "#/$defs/Conditions",
+          "description": "Conditions for the ruleset."
+        },
+        "repository": {
+          "type": "string",
+          "description": "The repository to which the ruleset applies."
+        }
+      },
+      "required": ["enforcement", "name", "rules", "target"]
+    },
+    "Rule": {
+      "title": "Rule Configuration",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "branch_name_pattern": {
+          "$ref": "#/$defs/PatternRule",
+          "description": "Pattern rule for branch names."
+        },
+        "commit_author_email_pattern": {
+          "$ref": "#/$defs/PatternRule",
+          "description": "Pattern rule for commit author emails."
+        },
+        "commit_message_pattern": {
+          "$ref": "#/$defs/PatternRule",
+          "description": "Pattern rule for commit messages."
+        },
+        "committer_email_pattern": {
+          "$ref": "#/$defs/PatternRule",
+          "description": "Pattern rule for committer emails."
+        },
+        "creation": {
+          "type": "boolean",
+          "description": "If true, creation is allowed or required."
+        },
+        "deletion": {
+          "type": "boolean",
+          "description": "If true, deletion is allowed or required."
+        },
+        "non_fast_forward": {
+          "type": "boolean",
+          "description": "If true, non-fast-forward pushes are allowed or required."
+        },
+        "pull_request": {
+          "$ref": "#/$defs/PullRequestRule",
+          "description": "Configuration for pull request rules."
+        },
+        "required_deployments": {
+          "$ref": "#/$defs/RequiredDeployments",
+          "description": "Configuration for required deployments."
+        },
+        "required_linear_history": {
+          "type": "boolean",
+          "description": "If true, a linear commit history is required."
+        },
+        "required_signatures": {
+          "type": "boolean",
+          "description": "If true, commit signatures are required."
+        },
+        "required_status_checks": {
+          "$ref": "#/$defs/RequiredStatusChecks",
+          "description": "Configuration for required status checks."
+        },
+        "tag_name_pattern": {
+          "$ref": "#/$defs/PatternRule",
+          "description": "Pattern rule for tag names."
+        },
+        "required_code_scanning": {
+          "$ref": "#/$defs/RequiredCodeScanning",
+          "description": "Configuration for required code scanning."
+        },
+        "update": {
+          "type": "boolean",
+          "description": "If true, updates are allowed or required."
+        },
+        "update_allows_fetch_and_merge": {
+          "type": "boolean",
+          "description": "If true, fetch and merge updates are allowed."
+        }
+      }
+    },
+    "PatternRule": {
+      "title": "Pattern Rule Configuration",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "operator": {
+          "type": "string",
+          "description": "The operator for the pattern rule."
+        },
+        "pattern": {
+          "type": "string",
+          "description": "The pattern to match."
+        },
+        "name": {
+          "type": "string",
+          "description": "The name of the pattern rule."
+        },
+        "negate": {
+          "type": "boolean",
+          "description": "If true, the pattern match is negated."
+        }
+      },
+      "required": ["operator", "pattern"]
+    },
+    "PullRequestRule": {
+      "title": "Pull Request Rule Configuration",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "dismiss_stale_reviews_on_push": {
+          "type": "boolean",
+          "description": "If true, stale reviews are dismissed on push."
+        },
+        "require_code_owner_review": {
+          "type": "boolean",
+          "description": "If true, code owner review is required."
+        },
+        "require_last_push_approval": {
+          "type": "boolean",
+          "description": "If true, approval of the last push is required."
+        },
+        "required_approving_review_count": {
+          "type": "integer",
+          "description": "The number of required approving reviews."
+        },
+        "required_review_thread_resolution": {
+          "type": "boolean",
+          "description": "If true, resolution of review threads is required."
+        }
+      }
+    },
+    "RequiredDeployments": {
+      "title": "Required Deployments Configuration",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "required_deployment_environments": {
+          "type": "array",
+          "description": "A list of required deployment environments.",
+          "items": { "type": "string" }
+        }
+      },
+      "required": ["required_deployment_environments"]
+    },
+    "RequiredStatusChecks": {
+      "title": "Required Status Checks Configuration",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "required_check": {
+          "type": "array",
+          "description": "A list of required status checks.",
+          "items": { "$ref": "#/$defs/RequiredCheck" }
+        },
+        "strict_required_status_checks_policy": {
+          "type": "boolean",
+          "description": "If true, strict status check policy is enforced."
+        }
+      },
+      "required": ["required_check"]
+    },
+    "RequiredCheck": {
+      "title": "Required Check Configuration",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "context": {
+          "type": "string",
+          "description": "The context of the status check."
+        },
+        "source": {
+          "type": "string",
+          "description": "Name of required check source."
+        }
+      },
+      "required": ["context", "source"]
+    },
+    "RequiredCodeScanning": {
+      "title": "Required Code Scanning Configuration",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "required_code_scanning_tool": {
+          "type": "array",
+          "description": "A list of required code scanning tools.",
+          "items": { "$ref": "#/$defs/RequiredCodeScanningTool" }
+        }
+      },
+      "required": ["required_code_scanning_tool"]
+    },
+    "RequiredCodeScanningTool": {
+      "title": "Required Code Scanning Tool Configuration",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "alerts_threshold": {
+          "type": "integer",
+          "description": "The threshold for alerts."
+        },
+        "security_alerts_threshold": {
+          "type": "integer",
+          "description": "The threshold for security alerts."
+        },
+        "tool": {
+          "type": "string",
+          "description": "The name of the code scanning tool."
+        }
+      },
+      "required": ["alerts_threshold", "security_alerts_threshold"]
+    },
+    "BypassActor": {
+      "title": "Bypass Actor Configuration",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "actor_id": {
+          "type": "integer",
+          "description": "The ID of the actor. For GitHub Apps, this is the App ID."
+        },
+        "actor_type": {
+          "type": "string",
+          "description": "The type of the actor.",
+          "enum": ["RepositoryRole", "Team", "Integration", "OrganizationAdmin"]
+        },
+        "bypass_mode": {
+          "type": "string",
+          "description": "The bypass mode for the actor.",
+          "enum": ["always", "pull_request"]
+        }
+      },
+      "required": ["actor_id", "actor_type"]
+    },
+    "Conditions": {
+      "title": "Conditions Configuration",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "ref_name": {
+          "$ref": "#/$defs/RefNameCondition",
+          "description": "Reference name conditions."
+        }
+      },
+      "required": ["ref_name"]
+    },
+    "RefNameCondition": {
+      "title": "Reference Name Condition Configuration",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "exclude": {
+          "type": "array",
+          "description": "A list of reference names to exclude.",
+          "items": { "type": "string" }
+        },
+        "include": {
+          "type": "array",
+          "description": "A list of reference names to include. Accepts ~DEFAULT_BRANCH or ~ALL.",
+          "items": { "type": "string" }
+        }
+      },
+      "required": ["exclude", "include"]
+    },
+    "BranchProtectionV4": {
+      "title": "Branch Protection Configuration (V4)",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "pattern": {
+          "type": "string",
+          "description": "The pattern for branches to protect."
+        },
+        "allows_deletions": {
+          "type": "boolean",
+          "description": "If true, branch deletion is allowed."
+        },
+        "allows_force_pushes": {
+          "type": "boolean",
+          "description": "If true, force pushes are allowed."
+        },
+        "force_push_bypassers": {
+          "type": "array",
+          "description": "A list of users or teams allowed to force push.",
+          "items": { "type": "string" }
+        },
+        "allows_creations": {
+          "type": "boolean",
+          "description": "If true, branch creation is allowed."
+        },
+        "blocks_creations": {
+          "type": "boolean",
+          "description": "If true, branch creation is blocked."
+        },
+        "enforce_admins": {
+          "type": "boolean",
+          "description": "If true, admins are also subject to branch protection."
+        },
+        "push_restrictions": {
+          "type": "array",
+          "description": "A list of users or teams allowed to push.",
+          "items": { "type": "string" }
+        },
+        "require_conversation_resolution": {
+          "type": "boolean",
+          "description": "If true, resolution of conversations is required."
+        },
+        "require_signed_commits": {
+          "type": "boolean",
+          "description": "If true, signed commits are required."
+        },
+        "required_linear_history": {
+          "type": "boolean",
+          "description": "If true, a linear commit history is required."
+        },
+        "required_pull_request_reviews": {
+          "$ref": "#/$defs/RequiredPullRequestReviews",
+          "description": "Configuration for required pull request reviews."
+        },
+        "required_status_checks": {
+          "$ref": "#/$defs/RequiredStatusChecksV4",
+          "description": "Configuration for required status checks (V4)."
+        },
+        "restricts_pushes": {
+          "type": "boolean",
+          "description": "If true, pushes are restricted."
+        },
+        "lock_branch": {
+          "type": "boolean",
+          "description": "If true, the branch is locked."
+        }
+      },
+      "required": ["pattern"]
+    },
+    "RequiredPullRequestReviews": {
+      "title": "Required Pull Request Reviews Configuration",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "required_approving_review_count": {
+          "type": "integer",
+          "description": "The number of required approving reviews."
+        },
+        "dismiss_stale_reviews": {
+          "type": "boolean",
+          "description": "If true, stale reviews are dismissed."
+        },
+        "require_code_owner_reviews": {
+          "type": "boolean",
+          "description": "If true, code owner reviews are required."
+        },
+        "dismissal_restrictions": {
+          "type": "array",
+          "description": "A list of users or teams allowed to dismiss reviews.",
+          "items": { "type": "string" }
+        },
+        "restrict_dismissals": {
+          "type": "boolean",
+          "description": "If true, review dismissals are restricted."
+        },
+        "pull_request_bypassers": {
+          "type": "array",
+          "description": "A list of users or teams allowed to bypass pull request requirements.",
+          "items": { "type": "string" }
+        },
+        "require_last_push_approval": {
+          "type": "boolean",
+          "description": "If true, approval of the last push is required."
+        }
+      }
+    },
+    "RequiredStatusChecksV4": {
+      "title": "Required Status Checks Configuration (V4)",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "strict": {
+          "type": "boolean",
+          "description": "If true, strict status checks are enforced."
+        },
+        "contexts": {
+          "type": "array",
+          "description": "A list of required status check contexts.",
+          "items": { "type": "string" }
+        }
+      }
+    }
+  }
+}
